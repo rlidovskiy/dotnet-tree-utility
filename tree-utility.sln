@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeUtility", "TreeUtility\TreeUtility.csproj", "{2BD132FB-B5C2-45E3-ABD2-79850CC75964}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeUtility.Tests", "TreeUtility.Tests\TreeUtility.Tests.csproj", "{E81E90F9-0D7A-4263-813B-8601538BC045}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{2BD132FB-B5C2-45E3-ABD2-79850CC75964}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BD132FB-B5C2-45E3-ABD2-79850CC75964}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BD132FB-B5C2-45E3-ABD2-79850CC75964}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E81E90F9-0D7A-4263-813B-8601538BC045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E81E90F9-0D7A-4263-813B-8601538BC045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E81E90F9-0D7A-4263-813B-8601538BC045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E81E90F9-0D7A-4263-813B-8601538BC045}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
