@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace TreeUtility
@@ -16,24 +17,29 @@ namespace TreeUtility
         {
             //put your solution here
             //_output.Write(...);
+            TreeNode<String> root = new TreeNode<String>(path);
+            DirSearch(path, root);
 
+            FormattedOutput(_output, root);
 
         }
 
-
-
-        void DirSearch(string sDir)
+        void DirSearch(string directory, TreeNode<string> node)
         {
             try
             {
-                foreach (string d in Directory.GetDirectories(sDir))
+  
+                foreach (string file in Directory.GetFiles(directory))
                 {
-                    foreach (string f in Directory.GetFiles(d))
-                    {
-                        lstFilesFound.Items.Add(f);
-                    }
-                    DirSearch(d);
+                    node.AddLeaf(file);
                 }
+
+                foreach (string dir in Directory.GetDirectories(directory))
+                {
+                    var childNode = node.AddChildNode(dir);
+                    DirSearch(directory, childNode);
+                }
+
             }
             catch (System.Exception ex)
             {
@@ -41,42 +47,17 @@ namespace TreeUtility
             }
         }
 
-
-        static IEnumerable<string> GetFiles(string path)
+        void FormattedOutput(TextWriter output, TreeNode<String> node)
         {
-            Queue<string> queue = new Queue<string>();
-            queue.Enqueue(path);
-            while (queue.Count > 0)
+
+            sorting(node.Children);
+            foreach (string child in node.Children)
             {
-                path = queue.Dequeue();
-                try
-                {
-                    foreach (string subDir in Directory.GetDirectories(path))
-                    {
-                        queue.Enqueue(subDir);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.Error.WriteLine(ex);
-                }
-                string[] files = null;
-                try
-                {
-                    files = Directory.GetFiles(path);
-                }
-                catch (Exception ex)
-                {
-                    Console.Error.WriteLine(ex);
-                }
-                if (files != null)
-                {
-                    for (int i = 0; i < files.Length; i++)
-                    {
-                        yield return files[i];
-                    }
-                }
+                output.Write(child);
+                output.Write("\r\n");
+                FormattedOutput(output, child)
             }
         }
+
     }
 }
