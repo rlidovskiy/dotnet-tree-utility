@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TreeUtility": {
+      "commandName": "Project",
+      "commandLineArgs": "testdata f"
+    }
+  }
+}
