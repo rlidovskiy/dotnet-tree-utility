@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TreeUtility
 {
-    class TreeNode<T>
+    public class TreeNode<T> 
     {
         public T Data { get; set; }
         public TreeNode<T> Parent { get; set; }
@@ -18,7 +18,7 @@ namespace TreeUtility
 
         public TreeNode<T> AddChild(T child)
         {
-            TreeNode<T> childNode = new TreeNode<T>(child) { Parent = this };
+            TreeNode<T> childNode = new TreeNode<T>(child) {Parent = this};
             this.Children.Add(childNode);
             return childNode;
         }

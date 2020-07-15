@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 
@@ -19,27 +20,22 @@ namespace TreeUtility
             //_output.Write(...);
             TreeNode<String> root = new TreeNode<String>(path);
             DirSearch(path, root);
-
             FormattedOutput(_output, root);
-
         }
 
         void DirSearch(string directory, TreeNode<string> node)
         {
             try
             {
-  
                 foreach (string file in Directory.GetFiles(directory))
                 {
-                    node.AddLeaf(file);
+                    node.AddChild(file);
                 }
-
                 foreach (string dir in Directory.GetDirectories(directory))
                 {
-                    var childNode = node.AddChildNode(dir);
+                    var childNode = node.AddChild(dir);
                     DirSearch(directory, childNode);
                 }
-
             }
             catch (System.Exception ex)
             {
@@ -49,13 +45,12 @@ namespace TreeUtility
 
         void FormattedOutput(TextWriter output, TreeNode<String> node)
         {
-
-            sorting(node.Children);
-            foreach (string child in node.Children)
+            var sortedChildren = node.Children.OrderBy(child => child.Data);
+            foreach (var child in sortedChildren)
             {
-                output.Write(child);
+                output.Write(child.Data);
                 output.Write("\r\n");
-                FormattedOutput(output, child)
+                FormattedOutput(output, child);
             }
         }
 
