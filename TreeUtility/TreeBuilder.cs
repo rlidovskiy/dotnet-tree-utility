@@ -21,9 +21,9 @@ namespace TreeUtility
         {
             //put your solution here
             //_output.Write(...);
-            TreeNode<String> root = new TreeNode<String>(path);
+            TreeNode<string> root = new TreeNode<string>(path);
             DirSearch(path, root, printFiles);
-            FormattedOutput(_output, root, new Stack<String>());
+            FormattedOutput(_output, root, new Stack<string>());
         }
 
         void DirSearch(string directory, TreeNode<string> node, bool includeFiles)
@@ -34,7 +34,14 @@ namespace TreeUtility
                 {
                     foreach (string filePath in Directory.GetFiles(directory))
                     {
-                        node.AddChild(Path.GetFileName(filePath));
+                        string fileSize;
+                        long length = new FileInfo(filePath).Length;
+                        if (length != 0)
+                            fileSize = new string($"({length}b)");
+                        else
+                            fileSize = new string("(empty)");
+
+                        node.AddChild(Path.GetFileName(filePath) + " " + fileSize);
                     }
                 }
                 foreach (string dirPath in Directory.GetDirectories(directory))
@@ -76,14 +83,14 @@ namespace TreeUtility
             
         }
 
-        string Tabs(Stack<String> tabScheme, bool last)
+        string Tabs(Stack<string> tabScheme, bool last)
         {
-            String output;
+            string output;
 
             if (last)
-                output = String.Concat(tabScheme.Reverse()) + "└───";
+                output = string.Concat(tabScheme.Reverse()) + "└───";
             else
-                output = String.Concat(tabScheme.Reverse()) + "├───";
+                output = string.Concat(tabScheme.Reverse()) + "├───";
 
             return output;
         }
