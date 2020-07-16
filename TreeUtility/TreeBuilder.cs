@@ -26,7 +26,7 @@ namespace TreeUtility
             FormattedOutput(_output, root, new Stack<string>());
         }
 
-        void DirSearch(string directory, TreeNode<string> node, bool includeFiles)
+        private void DirSearch(string directory, TreeNode<string> node, bool includeFiles)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace TreeUtility
             }
         }
 
-        void FormattedOutput(TextWriter output, TreeNode<string> node, Stack<string> tabScheme)
+        private void FormattedOutput(TextWriter output, TreeNode<string> node, Stack<string> tabScheme)
         {
             var sortedChildren = node.Children.OrderBy(child => child.Data).ToArray();
 
@@ -76,7 +76,7 @@ namespace TreeUtility
             
         }
 
-        string Tabs(Stack<string> tabScheme, bool last)
+        private string Tabs(Stack<string> tabScheme, bool last)
         {
             string output = last ? string.Concat(tabScheme.Reverse()) + "└───" : 
                 string.Concat(tabScheme.Reverse()) + "├───";
