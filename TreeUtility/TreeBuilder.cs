@@ -78,12 +78,8 @@ namespace TreeUtility
 
         string Tabs(Stack<string> tabScheme, bool last)
         {
-            string output;
-
-            if (last)
-                output = string.Concat(tabScheme.Reverse()) + "└───";
-            else
-                output = string.Concat(tabScheme.Reverse()) + "├───";
+            string output = last ? string.Concat(tabScheme.Reverse()) + "└───" : 
+                string.Concat(tabScheme.Reverse()) + "├───";
 
             return output;
         }
