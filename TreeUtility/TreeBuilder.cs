@@ -48,21 +48,38 @@ namespace TreeUtility
 
         void FormattedOutput(TextWriter output, TreeNode<String> node, int tabLevel = 0)
         {
-            var sortedChildren = node.Children.OrderBy(child => child.Data);
-            foreach (var child in sortedChildren)
+            
+            var sortedChildren = node.Children.OrderBy(child => child.Data).ToArray();
+            
+            for ( int i = 0; i < sortedChildren.Length; ++i)
             {
-                output.Write(Tabs(tabLevel));
-                output.Write(child.Data);
+                if (i == sortedChildren.Length - 1)
+                {
+                    output.Write(Tabs(tabLevel, true));
+                }
+                else
+                {
+                    output.Write(Tabs(tabLevel, false));
+                }
+                
+                output.Write(sortedChildren[i].Data);
                 output.Write("\r\n");
                 ++tabLevel;
-                FormattedOutput(output, child, tabLevel);
+                FormattedOutput(output, sortedChildren[i], tabLevel);
                 --tabLevel;
             }
         }
 
-        string Tabs(int n)
+        string Tabs(int n, bool last)
         {
-            return new String('\t', n);
+            String level;
+
+            if (last)
+                level = String.Concat(Enumerable.Repeat("\t", n)) + "└───";
+            else
+                level = String.Concat(Enumerable.Repeat("│\t", n)) + "├───";
+
+            return level;
         }
 
     }
