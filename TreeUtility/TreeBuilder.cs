@@ -19,22 +19,25 @@ namespace TreeUtility
             //put your solution here
             //_output.Write(...);
             TreeNode<String> root = new TreeNode<String>(path);
-            DirSearch(path, root);
+            DirSearch(path, root, printFiles);
             FormattedOutput(_output, root);
         }
 
-        void DirSearch(string directory, TreeNode<string> node)
+        void DirSearch(string directory, TreeNode<string> node, bool includeFiles)
         {
             try
             {
-                foreach (string filePath in Directory.GetFiles(directory))
+                if (includeFiles)
                 {
-                    node.AddChild(Path.GetFileName(filePath));
+                    foreach (string filePath in Directory.GetFiles(directory))
+                    {
+                        node.AddChild(Path.GetFileName(filePath));
+                    }
                 }
                 foreach (string dirPath in Directory.GetDirectories(directory))
                 {
                     var childNode = node.AddChild(Path.GetFileName(dirPath));
-                    DirSearch(dirPath, childNode);
+                    DirSearch(dirPath, childNode, includeFiles);
                 }
             }
             catch (System.Exception ex)
@@ -57,7 +60,7 @@ namespace TreeUtility
             }
         }
 
-        static string Tabs(int n)
+        string Tabs(int n)
         {
             return new String('\t', n);
         }
