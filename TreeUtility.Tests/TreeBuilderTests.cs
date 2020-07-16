@@ -19,7 +19,7 @@ namespace TreeUtility.Tests
 │	│	└───body.css (28b)
 │	├───empty.txt (empty)
 │	├───html
-│	│	└───index.html (61b)
+│	│	└───index.html (57b)
 │	├───js
 │	│	└───site.js (10b)
 │	└───z_lorem

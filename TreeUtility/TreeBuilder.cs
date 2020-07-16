@@ -32,19 +32,14 @@ namespace TreeUtility
             {
                 if (includeFiles)
                 {
-                    foreach (string filePath in Directory.GetFiles(directory))
+                    foreach (var filePath in Directory.GetFiles(directory))
                     {
-                        string fileSize;
-                        long length = new FileInfo(filePath).Length;
-                        if (length != 0)
-                            fileSize = new string($"({length}b)");
-                        else
-                            fileSize = new string("(empty)");
-
+                        var length = new FileInfo(filePath).Length;
+                        var fileSize = length != 0 ? new string($"({length}b)") : new string("(empty)");
                         node.AddChild(Path.GetFileName(filePath) + " " + fileSize);
                     }
                 }
-                foreach (string dirPath in Directory.GetDirectories(directory))
+                foreach (var dirPath in Directory.GetDirectories(directory))
                 {
                     var childNode = node.AddChild(Path.GetFileName(dirPath));
                     DirSearch(dirPath, childNode, includeFiles);
