@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 
@@ -20,7 +23,7 @@ namespace TreeUtility
             //_output.Write(...);
             TreeNode<String> root = new TreeNode<String>(path);
             DirSearch(path, root, printFiles);
-            FormattedOutput(_output, root);
+            FormattedOutput(_output, root, new Stack<String>());
         }
 
         void DirSearch(string directory, TreeNode<string> node, bool includeFiles)
@@ -46,40 +49,43 @@ namespace TreeUtility
             }
         }
 
-        void FormattedOutput(TextWriter output, TreeNode<String> node, int tabLevel = 0)
+        void FormattedOutput(TextWriter output, TreeNode<String> node, Stack<String> tabScheme)
         {
             
             var sortedChildren = node.Children.OrderBy(child => child.Data).ToArray();
-            
-            for ( int i = 0; i < sortedChildren.Length; ++i)
+
+            for (int i = 0; i < sortedChildren.Length; ++i)
             {
                 if (i == sortedChildren.Length - 1)
                 {
-                    output.Write(Tabs(tabLevel, true));
+                    output.Write(Tabs(tabScheme, true));
+                    output.Write(sortedChildren[i].Data);
+                    tabScheme.Push("\t");
+
                 }
                 else
                 {
-                    output.Write(Tabs(tabLevel, false));
+                    output.Write(Tabs(tabScheme, false));
+                    output.Write(sortedChildren[i].Data);
+                    tabScheme.Push("│\t");
                 }
-                
-                output.Write(sortedChildren[i].Data);
                 output.Write("\r\n");
-                ++tabLevel;
-                FormattedOutput(output, sortedChildren[i], tabLevel);
-                --tabLevel;
+                FormattedOutput(output, sortedChildren[i], tabScheme);
+                tabScheme.Pop();
             }
+            
         }
 
-        string Tabs(int n, bool last)
+        string Tabs(Stack<String> tabScheme, bool last)
         {
-            String level;
+            String output;
 
             if (last)
-                level = String.Concat(Enumerable.Repeat("\t", n)) + "└───";
+                output = String.Concat(tabScheme.Reverse()) + "└───";
             else
-                level = String.Concat(Enumerable.Repeat("│\t", n)) + "├───";
+                output = String.Concat(tabScheme.Reverse()) + "├───";
 
-            return level;
+            return output;
         }
 
     }
