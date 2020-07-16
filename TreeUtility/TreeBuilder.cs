@@ -33,7 +33,6 @@ namespace TreeUtility
                 }
                 foreach (string dirPath in Directory.GetDirectories(directory))
                 {
-                    
                     var childNode = node.AddChild(Path.GetFileName(dirPath));
                     DirSearch(dirPath, childNode);
                 }
@@ -44,15 +43,23 @@ namespace TreeUtility
             }
         }
 
-        void FormattedOutput(TextWriter output, TreeNode<String> node)
+        void FormattedOutput(TextWriter output, TreeNode<String> node, int tabLevel = 0)
         {
             var sortedChildren = node.Children.OrderBy(child => child.Data);
             foreach (var child in sortedChildren)
             {
+                output.Write(Tabs(tabLevel));
                 output.Write(child.Data);
                 output.Write("\r\n");
-                FormattedOutput(output, child);
+                ++tabLevel;
+                FormattedOutput(output, child, tabLevel);
+                --tabLevel;
             }
+        }
+
+        static string Tabs(int n)
+        {
+            return new String('\t', n);
         }
 
     }
