@@ -56,9 +56,8 @@ namespace TreeUtility
             }
         }
 
-        void FormattedOutput(TextWriter output, TreeNode<String> node, Stack<String> tabScheme)
+        void FormattedOutput(TextWriter output, TreeNode<string> node, Stack<string> tabScheme)
         {
-            
             var sortedChildren = node.Children.OrderBy(child => child.Data).ToArray();
 
             for (int i = 0; i < sortedChildren.Length; ++i)
@@ -68,7 +67,6 @@ namespace TreeUtility
                     output.Write(Tabs(tabScheme, true));
                     output.Write(sortedChildren[i].Data);
                     tabScheme.Push("\t");
-
                 }
                 else
                 {
