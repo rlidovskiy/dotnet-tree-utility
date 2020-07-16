@@ -27,14 +27,15 @@ namespace TreeUtility
         {
             try
             {
-                foreach (string file in Directory.GetFiles(directory))
+                foreach (string filePath in Directory.GetFiles(directory))
                 {
-                    node.AddChild(file);
+                    node.AddChild(Path.GetFileName(filePath));
                 }
-                foreach (string dir in Directory.GetDirectories(directory))
+                foreach (string dirPath in Directory.GetDirectories(directory))
                 {
-                    var childNode = node.AddChild(dir);
-                    DirSearch(directory, childNode);
+                    
+                    var childNode = node.AddChild(Path.GetFileName(dirPath));
+                    DirSearch(dirPath, childNode);
                 }
             }
             catch (System.Exception ex)
