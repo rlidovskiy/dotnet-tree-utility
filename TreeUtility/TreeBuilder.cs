@@ -22,11 +22,11 @@ namespace TreeUtility
             //put your solution here
             //_output.Write(...);
             TreeNode<string> root = new TreeNode<string>(path);
-            DirSearch(path, root, printFiles);
+            BuildTree(path, root, printFiles);
             FormattedOutput(_output, root, new Stack<string>());
         }
 
-        private void DirSearch(string directory, TreeNode<string> node, bool includeFiles)
+        private void BuildTree(string directory, TreeNode<string> node, bool includeFiles)
         {
             try
             {
@@ -35,19 +35,19 @@ namespace TreeUtility
                     foreach (var filePath in Directory.GetFiles(directory))
                     {
                         var length = new FileInfo(filePath).Length;
-                        var fileSize = length != 0 ? new string($"({length}b)") : new string("(empty)");
+                        var fileSize = length != 0 ? $"({length}b)" : "(empty)";
                         node.AddChild(Path.GetFileName(filePath) + " " + fileSize);
                     }
                 }
                 foreach (var dirPath in Directory.GetDirectories(directory))
                 {
                     var childNode = node.AddChild(Path.GetFileName(dirPath));
-                    DirSearch(dirPath, childNode, includeFiles);
+                    BuildTree(dirPath, childNode, includeFiles);
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                _output.WriteLine(ex.Message);
+                _output.WriteLine(ex.ToString());
             }
         }
 
