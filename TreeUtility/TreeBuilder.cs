@@ -61,30 +61,17 @@ namespace TreeUtility
             {
                 if (i == sortedChildren.Length - 1)
                 {
-                    output.Write(Tabs(tabScheme, true));
-                    output.Write(sortedChildren[i].Data.Name);
+                    output.WriteLine(sortedChildren[i], tabScheme, true);
                     tabScheme.Push("\t");
                 }
                 else
                 {
-                    output.Write(Tabs(tabScheme, false));
-                    output.Write(sortedChildren[i].Data.Name);
+                    output.WriteLine(sortedChildren[i], tabScheme, false);
                     tabScheme.Push("│\t");
                 }
-                output.Write("\r\n");
                 FormattedOutput(output, sortedChildren[i], tabScheme);
                 tabScheme.Pop();
             }
-            
         }
-
-        private string Tabs(Stack<string> tabScheme, bool last)
-        {
-            string output = last ? string.Concat(tabScheme.Reverse()) + "└───" : 
-                string.Concat(tabScheme.Reverse()) + "├───";
-
-            return output;
-        }
-
     }
 }
