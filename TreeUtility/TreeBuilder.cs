@@ -22,7 +22,6 @@ namespace TreeUtility
             //put your solution here
             //_output.Write(...);
             Node rootNode = new Node(path);
-            //TreeNode<string> root = new TreeNode<string>(path);
             TreeNode<Node> root = new TreeNode<Node>(new Node(path));
             BuildTree(root, printFiles);
             FormattedOutput(_output, root, new Stack<string>());
